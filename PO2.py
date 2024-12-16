@@ -59,16 +59,17 @@ def create_random_purchase_order(vendors):
 
     # Create a purchase order with random quantities for each component
     po_number = generate_po_number()
-    bike_order = [
-        {
+    
+    bike_order = []
+    for component in components:
+        bike_order.append({
             "PO Number": po_number,
             "Vendor": vendor,
             "Component": component[0],
             "Quantity": random.randint(1, 10),
             "Unit Price": component[1],
-        }
-        for component in components
-    ]
+        })
+    
     return bike_order
 
 # Generate a single random purchase order
