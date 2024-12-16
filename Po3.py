@@ -4,7 +4,7 @@ import time
 import os
 
 
-# Data for vendors and their components with multiple versions, including bike frames
+# Data for vendors and their components 
 vendors = {
     "Trek Bikes": [
         ("Bike Frame Carbon Pro", 1200),
@@ -91,7 +91,7 @@ with open(po_file_path, mode="w", newline="") as file:
     for order in purchase_order:
         writer.writerow(order)
 
-
+#Renaming the PO file to add a timestamp
 dt = str(datetime.datetime.now())
 t = os.path.getctime(po_file_path)
 t_str = time.ctime(t)
