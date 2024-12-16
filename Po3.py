@@ -1,5 +1,8 @@
 import csv
 import random
+import time 
+import os
+
 
 # Data for vendors and their components with multiple versions, including bike frames
 vendors = {
@@ -79,13 +82,21 @@ def create_random_purchase_order(vendors):
 purchase_order = create_random_purchase_order(vendors)
 
 # Writing the purchase order to a CSV file
-po_file_path = "single_purchase_order_with_random_components.csv"
+po_file_path = "/Users/squentel/Documents/test python/purchase_detail.csv"
 with open(po_file_path, mode="w", newline="") as file:
     writer = csv.DictWriter(file, fieldnames=["PO Number", "Vendor", "Component", "Quantity", "Unit Price"])
     # Write the header
-    writer.writeheader()
+    #writer.writeheader()
     # Write the data
     for order in purchase_order:
         writer.writerow(order)
 
-print(f"Single purchase order file created: {po_file_path}")
+
+dt = str(datetime.datetime.now())
+t = os.path.getctime(po_file_path)
+t_str = time.ctime(t)
+t_obj = time.strptime(t_str)
+form_t = time.strftime("%Y-%m-%dT%H-%M-%S", t_obj)
+os.rename(
+    po_file_path, os.path.split(po_file_path)[0] + '/' + form_t + os.path.splitext(po_file_path)[1])
+
