@@ -82,7 +82,7 @@ def create_random_purchase_order(vendors):
 purchase_order = create_random_purchase_order(vendors)
 
 # Writing the purchase order to a CSV file
-po_file_path = "/Users/squentel/Documents/test python/purchase_detail.csv"
+po_file_path = "MyPath"
 with open(po_file_path, mode="w", newline="") as file:
     writer = csv.DictWriter(file, fieldnames=["PO Number", "Vendor", "Component", "Quantity", "Unit Price"])
     # Write the header
