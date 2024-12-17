@@ -68,7 +68,7 @@ random_second = random.randint(0, 59)  # Seconds: 0-59
 random_date = current_time - timedelta(days=days_ago)
 random_timestamp = random_date.replace(hour=random_hour, minute=random_minute, second=random_second)
 
-# Format the timestamp as '%Y-%m-%dT%H-%M-%S'
+# Format the timestamp as '%Y-%m-%d-%H-%M-%S'
 t1 = datetime.strptime(str(random_timestamp), "%Y-%m-%d %H:%M:%S.%f")
 
 #################timestamp2
@@ -87,14 +87,14 @@ random_second = random.randint(0, 59)  # Seconds: 0-59
 random_date = current_time - timedelta(days=days_ago)
 random_timestamp = random_date.replace(hour=random_hour, minute=random_minute, second=random_second)
 
-# Format the timestamp as '%Y-%m-%dT%H-%M-%S'
+# Format the timestamp as '%Y-%m-%d-%H-%M-%S'
 t2 = datetime.strptime(str(random_timestamp), "%Y-%m-%d %H:%M:%S.%f")
 
 #####Get max and min
 old= min ((t1,t2))
-old=datetime.strftime(old,"%Y-%m-%dT%H-%M-%S")
+old=datetime.strftime(old,"%Y-%m-%d-%H-%M-%S")
 latest= max ((t1,t2))
-latest=datetime.strftime(latest,"%Y-%m-%dT%H-%M-%S")
+latest=datetime.strftime(latest,"%Y-%m-%d-%H-%M-%S")
 
 
 
