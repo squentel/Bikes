@@ -3,8 +3,7 @@ import random
 import time
 import os
 import datetime
-
-
+from datetime import datetime, timedelta
 # Data for vendors and their components
 vendors = {
     "Trek Bikes": [
@@ -60,11 +59,9 @@ def create_random_purchase_order(vendors):
     # Randomly select a vendor
     vendor = random.choice(list(vendors.keys()))
     components = vendors[vendor]
-
     # Randomly select a subset of components (between 1 and all available components)
     num_components = random.randint(1, len(components))  # Random number of components to select
     selected_components = random.sample(components, num_components)  # Select random components
-
     # Create a purchase order with random quantities for the selected components
     po_number = generate_po_number()
     bike_order = []
@@ -75,28 +72,22 @@ def create_random_purchase_order(vendors):
             "Component": component[0],
             "Quantity": random.randint(1, 10),  # Random quantity between 1 and 10
             "Unit Price": component[1],
-        })
-
+        }
+    )
     return bike_order
 
 # Generate a single random purchase order
+
 purchase_order = create_random_purchase_order(vendors)
 
 # Writing the purchase order to a CSV file
-po_file_path = "RENAME_WITH_DESIRED_FILEPATH"
+po_file_path = "/Users/squentel/Documents/test python/purchase_detail.csv"
 with open(po_file_path, mode="w", newline="") as file:
     writer = csv.DictWriter(file, fieldnames=["PO Number", "Vendor", "Component", "Quantity", "Unit Price"])
-    # Write the header
-    #writer.writeheader()
-    # Write the data
     for order in purchase_order:
         writer.writerow(order)
 
 ############GENERATE GENERAL PO ###################
-
-import csv
-import random
-
 # List of random names
 names = ['Simon', 'Andrea', 'Efrain']
 
@@ -109,7 +100,7 @@ def apply_percentage_increase(name, total):
 
 # Read the original purchase order CSV file
 input_file_path = po_file_path  # Your input CSV file name
-output_file_path = "po_file_path = "RENAME_WITH_DESIRED_FILEPATH""  # Output CSV file name
+output_file_path = "/Users/squentel/Documents/test python/final_purchase_order.csv"  # Output CSV file name
 
 # Initialize total sum
 total_sum = 0
@@ -117,7 +108,6 @@ total_sum = 0
 # Open and process the original CSV file
 with open(input_file_path, mode='r') as infile:
     reader = csv.reader(infile)
-
     # Read all lines and sum the totals
     for row in reader:
         if len(row) < 3:
@@ -141,21 +131,56 @@ with open(output_file_path, mode='w', newline='') as outfile:
     writer.writerow([po_number, round(total_sum, 2), name])
 
 print(f"Final purchase order with total has been saved to {output_file_path}")
-###########Rename fiels
+###################Generate 2 random timestamps in the past 7 days, between 8 AM and 6 PM
+#################timestamp1
+# Get the current time
+current_time = datetime.now()
+
+# Generate a random number of days in the past 7 days
+days_ago = random.randint(0, 6)  # 0 to 6 days ago
+
+# Generate a random time between 8:00 AM and 6:00 PM
+random_hour = random.randint(8, 17)  # Hours between 8 AM and 5 PM (last hour starts at 17)
+random_minute = random.randint(0, 59)  # Minutes: 0-59
+random_second = random.randint(0, 59)  # Seconds: 0-59
+
+# Create the random timestamp
+random_date = current_time - timedelta(days=days_ago)
+random_timestamp = random_date.replace(hour=random_hour, minute=random_minute, second=random_second)
+
+# Format the timestamp as '%Y-%m-%dT%H-%M-%S'
+t1 = datetime.strptime(str(random_timestamp), "%Y-%m-%d %H:%M:%S.%f")
+
+#################timestamp2
+# Get the current time
+current_time = datetime.now()
+
+# Generate a random number of days in the past 7 days
+days_ago = random.randint(0, 6)  # 0 to 6 days ago
+
+# Generate a random time between 8:00 AM and 6:00 PM
+random_hour = random.randint(8, 17)  # Hours between 8 AM and 5 PM (last hour starts at 17)
+random_minute = random.randint(0, 59)  # Minutes: 0-59
+random_second = random.randint(0, 59)  # Seconds: 0-59
+
+# Create the random timestamp
+random_date = current_time - timedelta(days=days_ago)
+random_timestamp = random_date.replace(hour=random_hour, minute=random_minute, second=random_second)
+
+# Format the timestamp as '%Y-%m-%dT%H-%M-%S'
+t2 = datetime.strptime(str(random_timestamp), "%Y-%m-%d %H:%M:%S.%f")
+
+#####Get max and min
+old= min ((t1,t2))
+old=datetime.strftime(old,"%Y-%m-%dT%H-%M-%S")
+latest= max ((t1,t2))
+latest=datetime.strftime(latest,"%Y-%m-%dT%H-%M-%S")
+
+###########Rename fields
 #Renaming the PO file to add a timestamp
-dt = str(datetime.datetime.now())
-t = os.path.getctime(po_file_path)
-t_str = time.ctime(t)
-t_obj = time.strptime(t_str)
-form_t = time.strftime("%Y-%m-%dT%H-%M-%S", t_obj)
 os.rename(
-    po_file_path, os.path.split(po_file_path)[0] + '/' + form_t + 'purchase_detail.csv')
+    po_file_path, os.path.split(po_file_path)[0] + '/' + old + 'purchase_detail.csv')
 
 #Renaming the global PO as well
-dt = str(datetime.datetime.now())
-t = os.path.getctime(output_file_path)
-t_str = time.ctime(t)
-t_obj = time.strptime(t_str)
-form_t = time.strftime("%Y-%m-%dT%H-%M-%S", t_obj)
 os.rename(
-    output_file_path, os.path.split(output_file_path)[0] + '/' + form_t + 'purchase_detail.csv')
+    output_file_path, os.path.split(output_file_path)[0] + '/' + latest + 'purchase_global.csv')
