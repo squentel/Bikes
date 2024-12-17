@@ -115,12 +115,12 @@ def create_random_purchase_order(vendors):
     bike_order = []
     for component in selected_components:
         bike_order.append({
-            "PO Number": po_number,
+            "TimeStamp": old,
+			"PO Number": po_number,
             "Vendor": vendor,
             "Component": component[0],
             "Quantity": random.randint(1, 10),  # Random quantity between 1 and 10
             "Unit Price": component[1],
-			"TimeStamp": old,
         }
     )
     return bike_order
@@ -132,7 +132,7 @@ purchase_order = create_random_purchase_order(vendors)
 # Writing the purchase order to a CSV file
 po_file_path = "/home/ubuntu/FD/PO/details.csv"
 with open(po_file_path, mode="w", newline="") as file:
-    writer = csv.DictWriter(file, fieldnames=["PO Number", "Vendor", "Component", "Quantity", "Unit Price", "TimeStamp"])
+    writer = csv.DictWriter(file, fieldnames=["TimeStamp","PO Number", "Vendor", "Component", "Quantity", "Unit Price"])
     for order in purchase_order:
         writer.writerow(order)
 
@@ -161,7 +161,7 @@ with open(input_file_path, mode='r') as infile:
     for row in reader:
         if len(row) < 3:
             continue  # Skip empty or incomplete lines
-        po_number = row[0]  # PO Number (assumed to be the same for all lines)
+        po_number = row[1]  # PO Number (assumed to be the same for all lines)
         quantity = int(row[-2])  # Quantity (second-to-last field)
         unit_price = float(row[-1])  # Unit price (last field)
         # Calculate the total for this line (quantity * unit price)
