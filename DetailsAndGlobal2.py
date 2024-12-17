@@ -189,4 +189,4 @@ os.rename(
 
 #Renaming the global PO as well
 os.rename(
-    output_file_path, os.path.split(output_file_path)[0] + '/' + latest + '_global.csv')
+    output_file_path, os.path.split(output_file_path)[0] + '/' + latest + '_transfer.csv')
