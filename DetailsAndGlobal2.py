@@ -130,7 +130,7 @@ def create_random_purchase_order(vendors):
 purchase_order = create_random_purchase_order(vendors)
 
 # Writing the purchase order to a CSV file
-po_file_path = "/home/ubuntu/FD/PO/details.csv"
+po_file_path = "YOUR_PATH_TO.csv"
 with open(po_file_path, mode="w", newline="") as file:
     writer = csv.DictWriter(file, fieldnames=["TimeStamp","PO Number", "Vendor", "Component", "Quantity", "Unit Price"])
     for order in purchase_order:
@@ -149,7 +149,7 @@ def apply_percentage_increase(name, total):
 
 # Read the original purchase order CSV file
 input_file_path = po_file_path  # Your input CSV file name
-output_file_path = "/home/ubuntu/FD/PO/global.csv"  # Output CSV file name
+output_file_path = "YOUR_PATH_TO.csv"  # Output CSV file name
 
 # Initialize total sum
 total_sum = 0
